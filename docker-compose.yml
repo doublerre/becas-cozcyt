@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+    web:
+        container_name: sistema_becas
+        restart: always
+        build: .
+        ports:
+            - 8000:8000
+        links:
+            - db-becas
+        volumes:
+            - ./:/app
+
+    db-becas:
+        image: mariadb
+        container_name: db-becas
+        environment:
+            MYSQL_DATABASE: becas
+            MYSQL_USER: becas_user
+            MYSQL_PASSWORD: becas_password
+            MYSQL_ROOT_PASSWORD: becas_root_password
+        volumes:
+            - db-becas:/var/lib/mysql
+        ports:
+            - 3306:3306
+
+volumes:
+    db-becas:
